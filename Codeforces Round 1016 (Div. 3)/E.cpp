@@ -1,0 +1,80 @@
+// بسم الله الرحمن الرحيم
+
+#include <bits/stdc++.h>
+//#include <ext/pb_ds/assoc_container.hpp>
+//#include <ext/pb_ds/tree_policy.hpp>
+#define Hesham ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+//#define ordered_set tree<ll,null_type,less_equal<>,rb_tree_tag,tree_order_statistics_node_update>
+#define fll(i,a,b) for(long long i=a;i<b;i++)
+#define fllm(i,a,b) for(long long i=a;i>=b;i--)
+#define f(b,a) cout << fixed << setprecision(b) << a << endl;
+#define rall(x) x.rbegin(),x.rend()
+#define MOD 1000000007
+#define sub_mod(a,b,m) ((((a)%m)-((b)%m)+m)%m)
+#define add_mod(a,b,m) ((((a)%m)+((b)%m))%m)
+#define mult_mod(a,b,m) ((((a)%m)*((b)%m))%m)
+#define pi 3.14159265358979323846
+#define all(x) x.begin(),x.end()
+#define ull unsigned long long
+#define ld long double
+#define ll long long
+#define sz(s) s.size()
+#define yes cout << "YES" << nl
+#define no cout << "NO" << nl
+#define F first
+#define S second
+#define nl '\n'
+
+using namespace std;
+//using namespace __gnu_pbds;
+
+vector<ll>v;
+bool can(ll m,ll k)
+{
+    ll cz=0,cv=m; vector<ll>a(m+1);
+    fll(i,0,sz(v))
+    {
+        if(v[i]<m&&!a[v[i]]) a[v[i]]=1,cv--;
+        if(cv==0)
+        {
+            cz++;
+            if(cz==k) return true;
+            else
+            {
+                cv=m;
+                fll(j,0,m+1) a[j]=0;
+            }
+        }
+    }
+    return false;
+}
+ 
+void solve()
+{
+    ll n,k,cn=INT_MAX,cx=0; cin >> n >> k; set<ll>s; v.resize(n);
+    fll(i,0,n) cin >> v[i],s.insert(v[i]);
+    for(auto &i:s)
+    {
+        if(cx==i) cx++;
+    }
+    ll l=0,r=cx+n,mid;
+    while(l<=r)
+    {
+        mid=l+(r-l)/2;
+        if(can(mid,k)) l=mid+1;
+        else r=mid-1;
+    }
+    cout << l-1 << nl;
+}
+
+int main()
+{
+    Hesham;
+    // freopen("input.in","r",stdin);
+    // freopen("output.out","w",stdout);
+    ll t=1;
+    cin >> t;
+    while(t--) solve();
+
+  return 0;
+}
